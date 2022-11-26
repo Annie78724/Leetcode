@@ -22,15 +22,16 @@ public:
 // 	}
 	int findMaxSum(int *arr, int n ) {
 	    // code here
-	    vector<int>dp(n+2,0);
-	   // int maxP=solve(0,arr,n,dp);
+	    int next1=0,cur=0,next2=0;
 	   for(int i=n-1;i>=0;i--)
 	   {
-	    int inc=arr[i]+dp[i+2];
-	    int exc=dp[i+1];
-	     dp[i]=max(inc,exc);
+	    int inc=arr[i]+next2;
+	    int exc=next1;
+	     cur=max(inc,exc);
+	     next2=next1;
+	     next1=cur;
 	   }
-	    return dp[0];
+	    return cur;
 	}
 };
 
