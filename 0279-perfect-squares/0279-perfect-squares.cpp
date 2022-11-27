@@ -11,8 +11,17 @@ public:
         }
         return dp[n]=ans;
     }
-    int numSquares(int n) {
-        vector<int>dp(n+1,-1);
-        return solve(n,dp);
+    int numSquares(int N) {
+        vector<int>dp(N+1,0);
+        for(int n=1;n<=N;n++)
+        {
+            int ans=INT_MAX;
+        for(int i=1;i*i<=n;i++)
+        {
+            ans=min(ans,1+dp[n-i*i]);
+        }
+         dp[n]=ans;
+        }
+        return dp[N];
     }
 };
