@@ -68,8 +68,7 @@ class Solution{
             head=head->next;
             mid->next=mid->next->next;
         }
-      temp=mid->next;
-        mid->next=rev(temp);
+      
         return true;
     }
 };
