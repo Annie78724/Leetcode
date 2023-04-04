@@ -50,7 +50,7 @@ vector<long long> printFirstNegativeInteger(long long int a[],
     }
     for(int i=k;i<n;i++)
     {
-        if(!dq.empty() and i-dq.front()>=k)
+        while(!dq.empty() and i-dq.front()>=k)
         {
             dq.pop_front();
         }
