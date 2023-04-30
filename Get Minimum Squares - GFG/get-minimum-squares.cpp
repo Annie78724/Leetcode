@@ -9,24 +9,26 @@ using namespace std;
 
 class Solution{
 	public:
-	int solve(int n,vector<int>&dp)
+	int solve(int n)
 	{
-	    if(n==0) return 0;
-	    
-	    if(dp[n]!=-1) return dp[n];
-	    int ans=n;
+	     vector<int>dp(n+1,INT_MAX);
+	   dp[0]=0;
+	    for(int j=1;j<=n;j++)
+	    {
 	    for(int i=1;i*i<=n;i++)
 	    {
 	        int temp=i*i;
-	        ans=min(ans,1+solve(n-temp,dp));
+	        if(j-temp>=0)
+	        dp[j]=min(dp[j],1+dp[j-temp]);
 	    }
-	    return dp[n]=ans;
+	    }
+	    return dp[n];
 	}
 	int MinSquares(int n)
 	{
 	    // Code here
-	    vector<int>dp(n+1,-1);
-	    return solve(n,dp);
+	   
+	    return solve(n);
 	}
 };
 
