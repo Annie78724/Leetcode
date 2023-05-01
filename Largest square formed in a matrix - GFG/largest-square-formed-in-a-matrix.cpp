@@ -9,27 +9,30 @@ using namespace std;
 
 class Solution{
 public:
+    int solve(int i,int j,vector<vector<int>>&mat,int &maxi,vector<vector<int>>&dp)
+    {
+        if(i>=mat.size() or j>=mat[0].size())
+        {
+            return 0;
+        }
+        if(dp[i][j]!=-1) return dp[i][j];
+        int right=solve(i,j+1,mat,maxi,dp);
+        int diagonal=solve(i+1,j+1,mat,maxi,dp);
+        int down=solve(i+1,j,mat,maxi,dp);
+        if(mat[i][j]==1)
+        {
+            int ans=1+min(right,min(down,diagonal));
+            maxi=max(maxi,ans);
+            return dp[i][j]=ans;
+        }
+        return dp[i][j]=0;
+    }
     int maxSquare(int n, int m, vector<vector<int>> mat){
         // code here
-        int dp[n+1][m+1];
-        int ans=0;
-        memset(dp,0,sizeof(dp));
-        for(int i=1;i<=n;i++)
-        {
-            for(int j=1;j<=m;j++)
-            {
-                if(mat[i-1][j-1]==1)
-                {
-                    dp[i][j]=1+min(dp[i-1][j-1],min(dp[i-1][j],dp[i][j-1]));
-                }
-                else
-                {
-                    dp[i][j]=0;
-                }
-                ans=max(ans,dp[i][j]);
-            }
-        }
-        return ans;
+        int maxi=0;
+        vector<vector<int>>dp(n,vector<int>(m,-1));
+        int x= solve(0,0,mat,maxi,dp);
+        return maxi;
     }
 };
 
