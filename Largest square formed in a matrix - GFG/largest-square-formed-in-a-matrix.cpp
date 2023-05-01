@@ -30,8 +30,23 @@ public:
     int maxSquare(int n, int m, vector<vector<int>> mat){
         // code here
         int maxi=0;
-        vector<vector<int>>dp(n,vector<int>(m,-1));
-        int x= solve(0,0,mat,maxi,dp);
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        for(int i=n-1;i>=0;i--)
+        {
+            for(int j=m-1;j>=0;j--)
+            {
+                int right=dp[i][j+1];
+        int diagonal=dp[i+1][j+1];
+        int down=dp[i+1][j];
+        if(mat[i][j]==1)
+        {
+            int ans=1+min(right,min(down,diagonal));
+            maxi=max(maxi,ans);
+             dp[i][j]=ans;
+        }
+        else dp[i][j]=0;
+            }
+        }
         return maxi;
     }
 };
